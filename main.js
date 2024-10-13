@@ -56,15 +56,28 @@ const printFruit = function() {
     console.log(fruit3);
 }
 
+const bombCheck = function() {
+    const lst = [fruit1,fruit2,fruit3];
+    const checkFor = "bomb";
+    for (let i = 0; i < lst.length; i++) {
+        if (lst[i] == checkFor) return true;
+    } 
+    return false;
+}
 const validate = function() {
-    let jackpot = checkJackpot();
-    let secondPrize = checkSecondPrize();
-    if (jackpot) {
-        console.log("Winner!");
-    } else if (secondPrize) {
-        console.log("You won a ok prize :(");
+    if (bombCheck() === true) {
+        console.log("You won nothing...BOOM!");
     } else {
-        console.log("Try again...");
+
+        let jackpot = checkJackpot();
+        let secondPrize = checkSecondPrize();
+        if (jackpot) {
+            console.log("Winner!");
+        } else if (secondPrize) {
+            console.log("You won a ok prize :(");
+        } else {
+            console.log("Try again...");
+        };
     };
     
 }
@@ -72,8 +85,8 @@ const validate = function() {
 const run = function() {
     let { num1, num2, num3 } = randomNum();
     fruitValues(num1, num2, num3);
-    validate();
     printFruit();
+    validate();
     
 };
 
