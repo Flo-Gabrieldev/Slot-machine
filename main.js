@@ -33,12 +33,21 @@ const checkJackpot = function() {
         return false;
     };
 };
+
+
 const checkSecondPrize = function() {
-    if (fruit1 === fruit2 || fruit1 === fruit3) {
-        return true;
-    } else {
-        return false;
-    };
+    const checkLst = [fruit1, fruit2, fruit3];
+    let pointer = 0;
+    let condition = false;
+    while (pointer < checkLst.length) {
+        for(let i = pointer + 1; i < checkLst.length; i++) {
+            if (checkLst[pointer] == checkLst[i]){
+                condition = true;
+            }
+        }
+        pointer++;
+    }
+    return condition;
 };
 
 const printFruit = function() {
