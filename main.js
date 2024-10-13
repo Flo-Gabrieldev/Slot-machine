@@ -10,5 +10,9 @@ const randomNum = function() {
 };
 
 const numToFruit = num => {
+    if (num > 7) {
+        return "bomb";
+    } else {
     return fruits[num];
+    }
 };
