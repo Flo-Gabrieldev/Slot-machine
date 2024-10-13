@@ -1,8 +1,6 @@
-// if not in fruits, is a dud!
+// if not in fruits, is a bomb!
 let fruits = ["lemon", "apple", "pineapple", "watermelon", "pear", "mango", "dragonfruit","golden apple"];
-let num1;
-let num2;
-let num3;
+
 
 const numToFruit = num => {
     if (num > 7) {
@@ -14,10 +12,10 @@ const numToFruit = num => {
 
 const randomNum = function() {
     
-    num1 = Math.floor(Math.random() * 9);
-    num2 = Math.floor(Math.random() * 9);
-    num3 = Math.floor(Math.random() * 9);
-    
+    let num1 = Math.floor(Math.random() * 9);
+    let num2 = Math.floor(Math.random() * 9);
+    let num3 = Math.floor(Math.random() * 9);
+    return { num1, num2, num3 };
 };
 
 const fruitValues = (num1, num2, num3) => {
@@ -27,9 +25,18 @@ const fruitValues = (num1, num2, num3) => {
     return { fruit1, fruit2, fruit3 };
 };
 
+const checkJackpot = (fruit1, fruit2, fruit3) => {
+    if (fruit1 === fruit2 && fruit1 === fruit3) {
+        return true;
+    } else {
+        return false;
+    };
+};
+
 const run = function() {
-    randomNum()
+    let { num1, num2, num3 } = randomNum();
     let { fruit1, fruit2, fruit3 } = fruitValues(num1, num2, num3);
+
     console.log(fruit1);
     console.log(fruit2);
     console.log(fruit3);
