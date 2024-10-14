@@ -4,6 +4,22 @@ let fruit1;
 let fruit2;
 let fruit3;
 
+class player {
+    constructor(name, balance) {
+        this._name = name;
+        this._balance = balance;
+        this._losses = 0;
+        this._profit = 0;
+    }
+
+    set updateBalance(val) {
+        if (typeof val === "number") {
+            this._balance += val;
+        } else {
+            console.log("error");
+        }
+    }
+}
 const numToFruit = num => {
     if (num > 7) {
         return "bomb";
@@ -11,7 +27,6 @@ const numToFruit = num => {
     return fruits[num];
     }
 };
-
 const randomNum = function() {
     
     let num1 = Math.floor(Math.random() * 9);
@@ -19,13 +34,11 @@ const randomNum = function() {
     let num3 = Math.floor(Math.random() * 9);
     return { num1, num2, num3 };
 };
-
 const fruitValues = (num1, num2, num3) => {
     fruit1 = numToFruit(num1);
     fruit2 = numToFruit(num2);
     fruit3 = numToFruit(num3);
 };
-
 const checkJackpot = function() {
     if (fruit1 === fruit2 && fruit1 === fruit3) {
         return true;
@@ -33,8 +46,6 @@ const checkJackpot = function() {
         return false;
     };
 };
-
-
 const checkSecondPrize = function() {
     const checkLst = [fruit1, fruit2, fruit3];
     let pointer = 0;
@@ -49,13 +60,11 @@ const checkSecondPrize = function() {
     }
     return condition;
 };
-
 const printFruit = function() {
     console.log(fruit1);
     console.log(fruit2);
     console.log(fruit3);
-}
-
+};
 const bombCheck = function() {
     const lst = [fruit1,fruit2,fruit3];
     const checkFor = "bomb";
@@ -63,7 +72,7 @@ const bombCheck = function() {
         if (lst[i] == checkFor) return true;
     } 
     return false;
-}
+};
 const validate = function() {
     if (bombCheck() === true) {
         console.log("You won nothing...BOOM!");
@@ -80,7 +89,7 @@ const validate = function() {
         };
     };
     
-}
+};
 
 const run = function() {
     let { num1, num2, num3 } = randomNum();
@@ -91,3 +100,7 @@ const run = function() {
 };
 
 run();
+
+const user = new player("bot1", 1000);
+user.updateBalance = "s";
+console.log(user._balance);
