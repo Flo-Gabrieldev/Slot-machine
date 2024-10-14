@@ -24,14 +24,14 @@ class player {
         if(this._balance >= this._startingBalance) {
             this._profit = this._balance - this._startingBalance;
         } else {
-            this._profit = "In debt";
+            this._profit = "No profit";
         }
     }
     updateLosses() {
         if (this._balance <= this._startingBalance) {
             this._losses = this._balance - this._startingBalance;
         } else {
-            this._losses = "In profit";
+            this._losses = "No Losses";
         }
     }
 
@@ -118,6 +118,3 @@ const run = function() {
 run();
 
 const user = new player("bot1", 1000);
-user.updateBalance = 1;
-user.updateLosses();
-console.log(user._losses);
