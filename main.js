@@ -8,6 +8,7 @@ class player {
     constructor(name, balance) {
         this._name = name;
         this._balance = balance;
+        this._startingBalance = balance;
         this._losses = 0;
         this._profit = 0;
     }
@@ -16,9 +17,24 @@ class player {
         if (typeof val === "number") {
             this._balance += val;
         } else {
-            console.log("error");
+            console.log("error: balance will not update");
         }
     }
+    updateProfit() {
+        if(this._balance >= this._startingBalance) {
+            this._profit = this._balance - this._startingBalance;
+        } else {
+            this._profit = "In debt";
+        }
+    }
+    updateLosses() {
+        if (this._balance <= this._startingBalance) {
+            this._losses = this._balance - this._startingBalance;
+        } else {
+            this._losses = "In profit";
+        }
+    }
+
 }
 const numToFruit = num => {
     if (num > 7) {
@@ -102,5 +118,6 @@ const run = function() {
 run();
 
 const user = new player("bot1", 1000);
-user.updateBalance = "s";
-console.log(user._balance);
+user.updateBalance = 1;
+user.updateLosses();
+console.log(user._losses);
