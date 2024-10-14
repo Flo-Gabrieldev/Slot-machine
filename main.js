@@ -3,6 +3,10 @@ let fruits = ["lemon", "apple", "pineapple", "watermelon", "pear", "mango", "dra
 let fruit1;
 let fruit2;
 let fruit3;
+//variables hold the cash prize(note secondCashPrize always stays the same, while jackpot Prize rises over time)
+let jackpotCashPrize = 1000;
+let secondCashPrize = 100;
+const fee = 100;
 
 class player {
     constructor(name, balance) {
@@ -12,14 +16,10 @@ class player {
         this._losses = 0;
         this._profit = 0;
     }
-
-    set updateBalance(val) {
-        if (typeof val === "number") {
-            this._balance += val;
-        } else {
-            console.log("error: balance will not update");
-        }
+    payFee() {
+        this._balance -= fee;
     }
+    
     updateProfit() {
         if(this._balance >= this._startingBalance) {
             this._profit = this._balance - this._startingBalance;
@@ -32,6 +32,16 @@ class player {
             this._losses = this._balance - this._startingBalance;
         } else {
             this._losses = "No Losses";
+        }
+    }
+
+    set updateBalance(val) {
+        if (typeof val === "number") {
+            this._balance += val;
+            this.updateProfit();
+            this.updateLosses();
+        } else {
+            console.log("error: balance will not update");
         }
     }
 
@@ -89,32 +99,43 @@ const bombCheck = function() {
     } 
     return false;
 };
-const validate = function() {
+const validate = function(player1) {
     if (bombCheck() === true) {
         console.log("You won nothing...BOOM!");
+        printOutcome(player1, 0);
     } else {
-
         let jackpot = checkJackpot();
         let secondPrize = checkSecondPrize();
         if (jackpot) {
+            player1.updateBalance = jackpotCashPrize;
             console.log("Winner!");
+            printOutcome(player1, jackpotCashPrize);
         } else if (secondPrize) {
+            player1.updateBalance = secondCashPrize
             console.log("You won a ok prize :(");
+            printOutcome(player1, secondCashPrize);
         } else {
             console.log("Try again...");
+            printOutcome(player1, 0);
         };
     };
     
 };
+const printOutcome = (player1, prizeMoney) => {
+    console.log(`Fee: ${fee}`);
+    console.log(`Payout: ${prizeMoney}`);
+    console.log(`Remaining balance: ${player1._balance}`)
+}
 
-const run = function() {
+
+
+
+const user = new player("bot1", 1000);
+const run = function(player1) {
+    player1.payFee();
     let { num1, num2, num3 } = randomNum();
     fruitValues(num1, num2, num3);
     printFruit();
-    validate();
-    
+    validate(player1);
 };
-
-run();
-
-const user = new player("bot1", 1000);
+run(user);
